@@ -1,0 +1,28 @@
+services:
+  # Backend API Service
+  - type: web
+    name: supermall-api
+    env: node
+    plan: free
+    region: oregon
+    buildCommand: yarn install
+    startCommand: node server/server.js
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: MONGODB_URI
+        scope: build
+        value: mongodb+srv://chitranshnigam2000:Saurabh2000@cluster0.1ozpy3r.mongodb.net/?appName=Cluster0
+      - key: JWT_SECRET
+        value: 09533de83f5c1befea2a89117249cabecffdfc3c
+      - key: PORT
+        value: 3001
+
+  # Frontend Static Site
+  - type: static_site
+    name: supermall-web
+    buildCommand: cd client && yarn install && yarn build
+    publishDirectory: client/dist
+    envVars:
+      - key: VITE_API_BASE_URL
+        value: https://supermall-xro3.onrender.com
