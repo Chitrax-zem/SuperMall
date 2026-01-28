@@ -14,7 +14,7 @@ connectDB();
 // Start server
 const server = app.listen(PORT, () => {
   logger.info(`Server running on port ${PORT}`);
-  console.log(`🚀 Server is running on http://localhost:${PORT}`);
+  console.log(`🚀 Server running on port ${PORT}`);
 });
 
 // Handle unhandled promise rejections
