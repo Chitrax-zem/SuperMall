@@ -1,0 +1,9 @@
+require('dotenv').config();
+
+module.exports = {
+  PORT: process.env.PORT || 5000,
+  MONGODB_URI: process.env.MONGODB_URI || 'mongodb+srv://chitranshnigam2000:Saurabh2000@cluster0.1ozpy3r.mongodb.net/?appName=Cluster0',
+  JWT_SECRET: process.env.JWT_SECRET || '09533de83f5c1befea2a89117249cabecffdfc3c',
+  JWT_EXPIRE: process.env.JWT_EXPIRE || '7d',
+  NODE_ENV: process.env.NODE_ENV || 'development',
+};

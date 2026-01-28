@@ -1,0 +1,190 @@
+/* ==========================
+   Design Tokens (Dark Theme)
+   ========================== */
+:root {
+  --primary: #2563eb;
+  --primary-600: #1d4ed8;
+  --secondary: #64748b;
+  --muted: #94a3b8;
+  --success: #10b981;
+  --warning: #f59e0b;
+  --danger: #ef4444;
+
+  --bg: #0b1220;
+  --panel: #0f172a;
+  --surface: #111827;
+
+  --text: #e5e7eb;
+  --text-dim: #cbd5e1;
+
+  --border: rgba(148, 163, 184, 0.2);
+  --shadow: 0 10px 30px rgba(2, 6, 23, 0.35);
+
+  /* Backward-compatible aliases (used by some components) */
+  --primary-color: var(--primary);
+  --secondary-color: var(--secondary);
+  --danger-color: var(--danger);
+}
+
+/* ==========================
+   Base / Layout
+   ========================== */
+html, body, #root {
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  background: linear-gradient(180deg, #0b1220, #0a0f1d);
+  color-scheme: dark;
+  overflow-x: hidden;
+}
+
+.app {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.main-content {
+  flex: 1;
+  width: 99%;
+}
+
+/* Fluid container with responsive inline padding */
+.container {
+  width: 100%;
+  padding-inline: clamp(12px, 2vw, 28px);
+  margin-inline: auto;
+}
+
+
+
+/* Center main content sections/pages while staying fluid */
+.main-content > :is(section, .page, main, div.page) {
+  width: 100%;
+  max-width: clamp(960px, 90vw, 1280px);
+  margin-inline: auto;
+}
+
+/* Admin area center + responsive padding */
+.admin-content {
+  width: 100%;
+  max-width: clamp(1024px, 92vw, 1360px);
+  margin-inline: auto;
+  padding-inline: clamp(16px, 2vw, 28px);
+}
+
+/* Ensure structural elements never constrain width */
+section, main, footer, header {
+  max-width: 100%;
+}
+
+/* Tables fill the centered container */
+.table-container,
+.data-table {
+  width: 100%;
+  max-width: 100%;
+}
+
+/* ==========================
+   States / Utilities
+   ========================== */
+.loading {
+  text-align: center;
+  padding: 48px 16px;
+  color: var(--muted);
+}
+
+.error {
+  text-align: center;
+  padding: 60px 20px;
+  color: var(--danger-color);
+}
+
+.no-data {
+  text-align: center;
+  padding: 40px;
+  color: var(--secondary-color);
+}
+
+/* ==========================
+   Buttons
+   ========================== */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  text-decoration: none;
+  transition: color .2s ease, background-color .2s ease, box-shadow .2s ease, transform .2s ease;
+}
+
+.btn-block {
+  width: 100%;
+  justify-content: center;
+}
+
+.btn-primary {
+  background-color: var(--primary);
+  color: #fff;
+}
+.btn-primary:hover {
+  background-color: #1e40af; /* primary-700 */
+}
+
+.btn-secondary {
+  background-color: var(--secondary);
+  color: #fff;
+}
+.btn-secondary:hover {
+  background-color: #475569; /* slate-600 */
+}
+
+.btn-icon {
+  padding: 8px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 18px;
+  transition: color .2s ease, transform .2s ease;
+}
+
+.btn-edit { color: var(--primary); }
+.btn-delete { color: var(--danger); }
+
+/* ==========================
+   Accessibility: Motion
+   ========================== */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ==========================
+   Responsive
+   ========================== */
+@media (max-width: 768px) {
+  /* container already uses clamp() for padding, no need to override */
+  .btn {
+    padding: 8px 16px;
+    font-size: 13px;
+  }
+
+  .main-content > :is(section, .page, main, div.page) {
+    max-width: 100%;
+    padding-inline: 15px;
+  }
+
+  .admin-content {
+    max-width: 100%;
+    padding-inline: 15px;
+  }
+}

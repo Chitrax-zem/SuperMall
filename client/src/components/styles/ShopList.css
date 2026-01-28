@@ -1,0 +1,242 @@
+/* =========================================
+   ShopList.css - shop directory display
+   ========================================= */
+
+.shop-list-page {
+  width: 100%;
+  color: var(--text);
+  background:
+    radial-gradient(60% 80% at 100% 10%, rgba(37, 99, 235, 0.12), transparent 60%),
+    radial-gradient(50% 60% at 0% 0%, rgba(16, 185, 129, 0.12), transparent 60%);
+  padding: 40px 16px;
+}
+
+.shop-list-page .container {
+  max-width: 1200px;
+}
+
+/* ========== Page Title ========== */
+.shop-list-page h1 {
+  font-size: clamp(24px, 3.2vw, 36px);
+  margin: 0 0 32px;
+  color: #fff;
+}
+
+/* ========== Filters ========== */
+.shop-filters {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: clamp(12px, 1.8vw, 18px);
+  margin-bottom: 36px;
+}
+
+.filter-input,
+.filter-select {
+  padding: 12px 14px;
+  border: 1px solid var(--border);
+  background: linear-gradient(180deg, rgba(148, 163, 184, 0.08), rgba(148, 163, 184, 0.04));
+  color: var(--text);
+  border-radius: 10px;
+  font-size: 14px;
+  transition: all 0.2s ease;
+  font-weight: 700;
+}
+
+.filter-input::placeholder { color: var(--text-dim); }
+
+.filter-input:focus,
+.filter-select:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+  background: linear-gradient(180deg, rgba(148, 163, 184, 0.12), rgba(148, 163, 184, 0.06));
+}
+
+.filter-input:hover,
+.filter-select:hover {
+  background: linear-gradient(180deg, rgba(148, 163, 184, 0.12), rgba(148, 163, 184, 0.06));
+  border-color: rgba(148, 163, 184, 0.3);
+}
+
+/* ========== Shops Grid ========== */
+.shops-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px,1fr));
+  gap: clamp(20px, 2.4vw, 28px);
+}
+
+/* ========== Shop Card ========== */
+.shop-card {
+  background: linear-gradient(180deg, rgba(148, 163, 184, 0.08), rgba(148, 163, 184, 0.04));
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: var(--shadow);
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.25s ease;
+  display: flex;
+  flex-direction: column;
+  text-decoration: none;
+  color: var(--text);
+}
+.shop-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 20px 45px rgba(2, 6, 23, 0.55);
+  background: linear-gradient(180deg, rgba(148, 163, 184, 0.12), rgba(148, 163, 184, 0.06));
+}
+
+/* Shop Banner/Image */
+.shop-image {
+  position: relative;
+  aspect-ratio: 16 / 9;
+  width: 100%;
+  height: auto;
+  overflow: hidden;
+  background: rgba(2, 6, 23, 0.5);
+  flex: 0 0 auto;
+}
+.shop-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* Shop Logo Overlay (optional) */
+.shop-logo-badge {
+  position: absolute;
+  bottom: 12px;
+  right: 12px;
+  width: 60px;
+  height: 60px;
+  border-radius: 12px;
+  background: rgba(2, 6, 23, 0.8);
+  border: 2px solid var(--primary);
+  overflow: hidden;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+}
+.shop-logo-badge img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Shop Info */
+.shop-info {
+  padding: 18px;
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto;
+  gap: 12px;
+}
+.shop-info h3 {
+  margin: 0;
+  font-size: 18px;
+  line-height: 1.3;
+}
+
+.shop-description {
+  color: var(--text-dim);
+  font-size: 13px;
+  margin: 0;
+  line-height: 1.5;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* Shop Meta */
+.shop-meta { display: flex; flex-direction: column; gap: 8px; font-size: 13px; }
+.shop-meta-item { display: flex; align-items: center; gap: 8px; color: var(--text-dim); }
+.shop-meta-item svg { color: var(--primary); flex: 0 0 auto; }
+.shop-rating { color: #f59e0b; font-weight: 700; }
+.shop-products-count { color: var(--primary); font-weight: 700; }
+
+/* Shop Location */
+.shop-location { display: flex; align-items: center; gap: 6px; color: var(--text-dim); font-size: 13px; }
+
+/* Shop Status */
+.shop-status {
+  display: inline-block;
+  padding: 4px 8px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.2px;
+}
+.shop-status.active { background: rgba(16, 185, 129, 0.15); color: #10b981; }
+.shop-status.inactive { background: rgba(239, 68, 68, 0.15); color: #ef4444; }
+
+/* Shop Action Button */
+.shop-card .btn { margin-top: 10px; width: 100%; }
+
+/* ========== Empty State ========== */
+.no-shops {
+  text-align: center;
+  padding: 80px 20px;
+  grid-column: 1 / -1;
+}
+.no-shops-icon {
+  font-size: 48px;
+  color: var(--text-dim);
+  margin-bottom: 16px;
+  opacity: 0.5;
+}
+.no-shops p {
+  font-size: 18px;
+  color: var(--text-dim);
+  margin: 0;
+}
+
+/* ========== Loading State ========== */
+.loading {
+  text-align: center;
+  padding: 60px 20px;
+  font-size: 16px;
+  color: var(--text-dim);
+  grid-column: 1 / -1;
+}
+
+/* ========== Pagination ========== */
+.pagination {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  margin-top: 40px;
+  padding-top: 32px;
+  border-top: 1px solid var(--border);
+}
+.btn-page {
+  padding: 10px 16px;
+  border: 1px solid var(--border);
+  background: rgba(148, 163, 184, 0.08);
+  color: var(--text);
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: 700;
+  transition: all 0.2s ease;
+  font-size: 14px;
+}
+.btn-page:hover:not(:disabled) {
+  background: rgba(148, 163, 184, 0.16);
+  border-color: var(--primary);
+  transform: translateY(-1px);
+}
+.btn-page:disabled { opacity: 0.5; cursor: not-allowed; }
+.page-info { color: var(--text-dim); font-size: 14px; }
+
+/* ========== Responsive ========== */
+@media (max-width: 920px) {
+  .shop-filters { grid-template-columns: 1fr 1fr; }
+  .shops-grid { grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); }
+}
+
+@media (max-width: 640px) {
+  .shop-list-page h1 { font-size: 22px; }
+  .shop-filters { grid-template-columns: 1fr; }
+  .shops-grid { grid-template-columns: 1fr; }
+  .shop-card { border-radius: 12px; }
+  .shop-info { padding: 16px; }
+  .shop-image { aspect-ratio: 16 / 8; }
+}
