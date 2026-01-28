@@ -2,7 +2,7 @@ import axios from 'axios';
 
 // Create axios instance with default config
 const api = axios.create({
-  baseURL: '/api',
+  baseURL: import.meta.env.VITE_API_BASE_URL,
   headers: { 'Content-Type': 'application/json' },
   timeout: 10000,
 });
@@ -17,6 +17,13 @@ api.interceptors.request.use(
   (error) => Promise.reject(error)
 );
 
+// Safe logger (silent in production)
+const logError = (...args) => {
+  if (import.meta.env.MODE !== 'production') {
+    console.error(...args);
+  }
+};
+
 // Response interceptor - Handle common errors
 api.interceptors.response.use(
   (response) => response,
@@ -30,37 +37,35 @@ api.interceptors.response.use(
     if (isCanceled) return Promise.reject(error);
 
     if (error.response) {
-      const { status, data, config } = error.response;
+      const { status, data } = error.response; // no unused vars
 
       switch (status) {
         case 401: {
-          // Do NOT hard-redirect; let AuthContext/ProtectedRoute handle navigation.
-          // Only clear the token so subsequent calls become unauthenticated.
+          // Clear token; let app-level auth guards handle navigation.
           localStorage.removeItem('token');
-          // Optional: if you want to notify app, you can dispatch a custom event here.
           break;
         }
         case 403:
-          console.error('Access forbidden');
+          logError('Access forbidden');
           break;
         case 404:
-          console.error('Resource not found');
+          logError('Resource not found');
           break;
         case 500:
-          console.error('Server error occurred');
+          logError('Server error occurred');
           break;
         default:
-          console.error(
+          logError(
             'An error occurred:',
             typeof data === 'string' ? data : data?.message || 'Unknown error'
           );
       }
       return Promise.reject(error);
     } else if (error.request) {
-      console.error('No response from server. Please check your connection.');
+      logError('No response from server. Please check your connection.');
       return Promise.reject(new Error('Network error. Please try again.'));
     } else {
-      console.error('Error:', error.message);
+      logError('Error:', error.message);
       return Promise.reject(error);
     }
   }
@@ -76,7 +81,7 @@ export const authAPI = {
   },
 };
 
-// Other APIs unchanged...
+// Products
 export const productsAPI = {
   getAll: (params) => api.get('/products', { params }),
   getById: (id) => api.get(`/products/${id}`),
@@ -85,6 +90,7 @@ export const productsAPI = {
   delete: (id) => api.delete(`/products/${id}`),
 };
 
+// Shops
 export const shopsAPI = {
   getAll: (params) => api.get('/shops', { params }),
   getById: (id) => api.get(`/shops/${id}`),
@@ -93,6 +99,7 @@ export const shopsAPI = {
   delete: (id) => api.delete(`/shops/${id}`),
 };
 
+// Offers
 export const offersAPI = {
   getAll: (params) => api.get('/offers', { params }),
   getById: (id) => api.get(`/offers/${id}`),
@@ -101,6 +108,7 @@ export const offersAPI = {
   delete: (id) => api.delete(`/offers/${id}`),
 };
 
+// Categories
 export const categoriesAPI = {
   getAll: () => api.get('/categories'),
   getById: (id) => api.get(`/categories/${id}`),
@@ -109,6 +117,7 @@ export const categoriesAPI = {
   delete: (id) => api.delete(`/categories/${id}`),
 };
 
+// Floors
 export const floorsAPI = {
   getAll: () => api.get('/floors'),
   getById: (id) => api.get(`/floors/${id}`),
@@ -117,6 +126,7 @@ export const floorsAPI = {
   delete: (id) => api.delete(`/floors/${id}`),
 };
 
+// Upload
 export const uploadFile = async (file, endpoint) => {
   const formData = new FormData();
   formData.append('file', file);
@@ -126,6 +136,7 @@ export const uploadFile = async (file, endpoint) => {
   });
 };
 
+// Query string helper
 export const buildQueryString = (params) => {
   const query = new URLSearchParams();
   Object.keys(params).forEach((key) => {
