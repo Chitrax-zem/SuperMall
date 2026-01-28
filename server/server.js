@@ -30,3 +30,7 @@ const logger = require('./src/utils/logger');
     process.exit(1);
   }
 })();
+
+app.get("/", (req, res) => {
+  res.status(200).send("✅ SuperMall Backend is running");
+});
